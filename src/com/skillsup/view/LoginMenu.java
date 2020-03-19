@@ -34,6 +34,7 @@ public class LoginMenu implements Menu {
                     break;
 
                 case "2":
+                    System.out.println("sdsd");
                     System.out.println("Registered!");
                     break;
 
