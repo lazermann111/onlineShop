@@ -3,6 +3,7 @@ package com.skillsup.view;
 import com.skillsup.dao.ProductDao;
 import com.skillsup.dao.ProductInMemDaoImpl;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ProductMenu implements Menu {
@@ -31,11 +32,28 @@ public class ProductMenu implements Menu {
             switch (scanner.nextLine()) {
                 case "1":
                     System.out.println("to be done!");
+                    productDao
+                            .getAllProductCategories()
+                            .forEach(System.out::println);
                     break;
 
                 case "2":
                     productDao
-                            .getAllProducts()
+                            .getAllProductz()
+                            .forEach(System.out::println);
+                    break;
+                case "4":
+                    System.out.println("Input search string:");
+                    String name = scanner.nextLine();
+                    productDao
+                            .getByProductSubstring(name)
+                            .forEach(System.out::println);
+                    break;
+                case "5":
+                    BigDecimal min = BigDecimal.valueOf(getDoubleInput("input min price:", scanner)) ;
+                    BigDecimal max = BigDecimal.valueOf(getDoubleInput("input max price:", scanner));
+                    productDao
+                            .filterProductsByPrice(min, max)
                             .forEach(System.out::println);
                     break;
                 case "9":

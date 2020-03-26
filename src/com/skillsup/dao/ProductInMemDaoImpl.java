@@ -4,15 +4,18 @@ import com.skillsup.model.Product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ProductInMemDaoImpl implements ProductDao {
     private static List<Product> database = new ArrayList<>();
+
     static {
-        database.add(new Product("Bread", BigDecimal.valueOf(15), 100 ));
-        database.add(new Product("Salt", BigDecimal.valueOf(6), 100 ));
-        database.add(new Product("Shampoo","Shampoo", "Chemicals", BigDecimal.valueOf(55), 100 ));
+        database.add(new Product("Bread", BigDecimal.valueOf(15), 100));
+        database.add(new Product("Salt", BigDecimal.valueOf(6), 100));
+        database.add(new Product("Shampoo", "Shampoo", "Chemicals", BigDecimal.valueOf(55), 100));
     }
 
     @Override
@@ -47,8 +50,17 @@ public class ProductInMemDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProductz() {
         return new ArrayList<>(database);
+    }
+
+    @Override
+    public Set<String> getAllProductCategories() {
+        Set<String> res = new HashSet<>();
+        for (Product product : database) {
+            res.add(product.getCategory());
+        }
+        return res;
     }
 
     @Override
@@ -67,11 +79,18 @@ public class ProductInMemDaoImpl implements ProductDao {
     }
 
     @Override
-    public List<Product> filterProductsByPrice(int min, int max) {
+    public List<Product> getByProductSubstring(String productName) {
+        return database.stream()
+                .filter(product -> product.getName().contains(productName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Product> filterProductsByPrice(BigDecimal min, BigDecimal max) {
         List<Product> result = new ArrayList<>();
         for (Product p : database) {
-            if (p.getCost().intValueExact() > min &&
-                    p.getCost().intValueExact() < max) {
+            if (p.getCost().compareTo(min) >= 0 &&
+                    p.getCost().compareTo(max) <= 0) {
                 result.add(p);
             }
         }

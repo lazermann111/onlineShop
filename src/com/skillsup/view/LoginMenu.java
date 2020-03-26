@@ -7,7 +7,6 @@ import com.skillsup.model.UserRole;
 import com.skillsup.service.UserService;
 import com.skillsup.service.UserServiceImpl;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LoginMenu implements Menu {
@@ -59,7 +58,7 @@ public class LoginMenu implements Menu {
         User user;
         if ("y".equalsIgnoreCase(procceding)) {
             Gender gender = getGenderInput();
-            int age = getAgeInput();
+            int age =(int) getDoubleInput("your age", scanner);
             user = new User(login, password, UserRole.CUSTOMER, gender, age);
 
         } else  {
@@ -75,16 +74,6 @@ public class LoginMenu implements Menu {
             System.out.println(registerResponse.getErrorMessage());
         }
 
-    }
-
-    private int getAgeInput() {
-        System.out.println("your age:");
-        try {
-            String age = scanner.nextLine();
-            return Integer.parseInt(age);
-        } catch (NumberFormatException e) {
-            return getAgeInput();
-        }
     }
 
     private Gender getGenderInput() {
