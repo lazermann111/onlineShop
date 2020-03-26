@@ -1,6 +1,7 @@
 package com.skillsup.dao;
 
 import com.skillsup.model.Product;
+import com.skillsup.model.Response;
 import com.skillsup.model.User;
 
 import java.math.BigDecimal;
