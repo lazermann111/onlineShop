@@ -9,9 +9,19 @@ public class Order {
     User user;
     OrderStatus orderStatus;
 
+    public BigDecimal subtotal() {
+        return  new PositionItem().subtotal();
+    }
+
     class PositionItem {
       Order order;
       int amount;
-      BigDecimal subtotal;
+      BigDecimal total;
+
+        public BigDecimal subtotal() {
+            return Order.this.total;
+        }
     }
+
+
 }
