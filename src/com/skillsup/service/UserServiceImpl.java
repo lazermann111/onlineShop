@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
                     "    Contains at least one char within a set of special chars (@#%$^ etc.)\n" +
                     "    Does not contain space, tab, etc.\n ");
         }
-        userDao.save(user);
+
         return new Response<>(user, true, "");
     }
 }
