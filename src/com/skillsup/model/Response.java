@@ -3,12 +3,12 @@ package com.skillsup.model;
 public class Response<T> {
     private T data;
     private boolean success;
-    private String errorMessage;
+    private String finalMessage;
 
-    public Response(T data, boolean success, String errorMessage) {
+    public Response(T data, boolean success, String finalMessage) {
         this.data = data;
         this.success = success;
-        this.errorMessage = errorMessage;
+        this.finalMessage = finalMessage;
     }
 
     public T getData() {
@@ -19,7 +19,7 @@ public class Response<T> {
         return success;
     }
 
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getFinalMessage() {
+        return finalMessage;
     }
 }

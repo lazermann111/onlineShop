@@ -3,26 +3,30 @@ package com.skillsup.model;
 import java.math.BigDecimal;
 
 public class Product {
+    private static long count=0;
     private long id;
     private String name;
-    private String description;
-    private String category;
+    private String description = "None";
+    private String category = "UNKNOWN";
     private BigDecimal cost;
     private long amount;
 
     public Product(String name, String description, String category, BigDecimal cost, long amount) {
+        this.id=count;
         this.name = name;
-        this.description = description;
-        this.category = category;
+        this.description = description.equals("") ? "None" : description;
+        this.category = category.equals("") ? "UNKNOWN" : category;
         this.cost = cost;
         this.amount = amount;
+        count++;
     }
 
     public Product(String name, BigDecimal cost, long amount) {
+        this.id=count;
         this.name = name;
-        this.category = "UNKNOWN";
         this.cost = cost;
         this.amount = amount;
+        count++;
     }
 
     public long getId() {
@@ -47,6 +51,26 @@ public class Product {
 
     public long getAmount() {
         return amount;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     @Override

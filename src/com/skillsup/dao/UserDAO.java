@@ -2,9 +2,14 @@ package com.skillsup.dao;
 
 import com.skillsup.model.User;
 
+import java.util.Collection;
+
 public interface UserDAO {
-    void save(User user);
-    void update(User user);
-    void delete(User user);
-    User get(String username);
+    void saveUser(User user);
+
+    void deleteUser(User user);
+
+    User getUser(String username);
+
+    Collection<User> getUserList();
 }

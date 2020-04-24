@@ -44,7 +44,7 @@ public class UserServiceTests {
         Response<User> res2 = userService.register(user);
 
         assert !res2.isSuccess() : "Weak pass user have been registered!";
-        assert res2.getErrorMessage().contains(YOU_HAVE_WEAK_PASSWORD) : "somme weird weird msg : " + res2.getErrorMessage();
+        assert res2.getFinalMessage().contains(YOU_HAVE_WEAK_PASSWORD) : "somme weird weird msg : " + res2.getFinalMessage();
 
     }
     private static void testNullEmptyPasswordLogin()
@@ -54,7 +54,7 @@ public class UserServiceTests {
         Response<User> res = userService.register(user);
 
         assert !res.isSuccess() : "Unique user haven't registered!";
-        assert EMPTY_USERNAME_OR_AND_PASSWORD.equals(res.getErrorMessage()) : "somme weird weird msg : " + res.getErrorMessage();
+        assert EMPTY_USERNAME_OR_AND_PASSWORD.equals(res.getFinalMessage()) : "somme weird weird msg : " + res.getFinalMessage();
 
     }
 
@@ -66,7 +66,7 @@ public class UserServiceTests {
         User user = new User(login, password, UserRole.CUSTOMER);
         Response<User> res = userService.register(user);
 
-        assert res.isSuccess() : res.getErrorMessage();
+        assert res.isSuccess() : res.getFinalMessage();
 
         Response<User> res2 = userService.login(login, "");
         assert !res2.isSuccess();
