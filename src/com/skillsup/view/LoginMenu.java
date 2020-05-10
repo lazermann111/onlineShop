@@ -4,7 +4,6 @@ import com.skillsup.model.Gender;
 import com.skillsup.model.Response;
 import com.skillsup.model.User;
 import com.skillsup.model.UserRole;
-import com.skillsup.service.UserService;
 import com.skillsup.service.UserServiceImpl;
 
 import java.util.Scanner;
