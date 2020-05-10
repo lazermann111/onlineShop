@@ -11,11 +11,14 @@ import java.util.Scanner;
 
 public class LoginMenu implements Menu {
     private Scanner scanner = new Scanner(System.in);
-    private UserService userService = new UserServiceImpl();
+    private UserServiceImpl userService = new UserServiceImpl();
+    User user;
 
     String[] menuItems = new String[]{
             "1. Login",
             "2. Register",
+            "3. Save",
+            "4. Delete",
             "9. Back",
             "0. Exit"
     };
@@ -32,15 +35,22 @@ public class LoginMenu implements Menu {
                 case "1":
                     loginSubMenu();
                     break;
-
                 case "2":
                     registerSubMenu();
                     break;
+                case "3":
+                    user = new User("Nikita", "Bat@6546546546", UserRole.CUSTOMER);
+                    userService.userFileDao.save(user);
+                    break;
+                case "4":
+                    userService.userFileDao.delete(user);
+                    break;
                 case "9":
-                    back();break;
+                    back();
+                    break;
                 case "0":
-                    exitProgram(); break;
-
+                    exitProgram();
+                    break;
             }
         }
 
@@ -58,19 +68,17 @@ public class LoginMenu implements Menu {
         User user;
         if ("y".equalsIgnoreCase(procceding)) {
             Gender gender = getGenderInput();
-            int age =(int) getDoubleInput("your age", scanner);
+            int age = (int) getDoubleInput("your age", scanner);
             user = new User(login, password, UserRole.CUSTOMER, gender, age);
 
-        } else  {
+        } else {
             user = new User(login, password, UserRole.CUSTOMER);
         }
 
         Response<User> registerResponse = userService.register(user);
-        if(registerResponse.isSuccess())
-        {
+        if (registerResponse.isSuccess()) {
             new ProductMenu().show();
-        }
-        else {
+        } else {
             System.out.println(registerResponse.getErrorMessage());
         }
 

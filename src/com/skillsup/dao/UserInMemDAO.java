@@ -1,16 +1,20 @@
 package com.skillsup.dao;
 
+import com.skillsup.model.Gender;
 import com.skillsup.model.User;
 import com.skillsup.model.UserRole;
 
+import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserInMemDAO implements UserDAO {
     static Map<String, User> userMap = new HashMap<>();
-    static
-    {
-       userMap.put("admin", new User("admin", "admin", UserRole.ADMIN));
+
+    static {
+        User user = new User("admin", "admin", UserRole.ADMIN);
+        userMap.put("admin", user);
     }
 
     @Override
@@ -30,6 +34,6 @@ public class UserInMemDAO implements UserDAO {
 
     @Override
     public User get(String username) {
-       return userMap.get(username);
+        return userMap.get(username);
     }
 }

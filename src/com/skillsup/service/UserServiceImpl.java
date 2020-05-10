@@ -1,5 +1,6 @@
 package com.skillsup.service;
 
+import com.skillsup.dao.UserFileDao;
 import com.skillsup.dao.UserDAO;
 import com.skillsup.dao.UserInMemDAO;
 import com.skillsup.model.Response;
@@ -12,7 +13,8 @@ public class UserServiceImpl implements UserService {
 
     public static final String EMPTY_USERNAME_OR_AND_PASSWORD = "empty username or/and password ";
     public static final String YOU_HAVE_WEAK_PASSWORD = "You have weak password";
-    private UserDAO userDao = new UserInMemDAO();
+    public UserDAO userDao = new UserInMemDAO();
+    public UserFileDao userFileDao = new UserFileDao();
     Pattern passwordPattern =  Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
 
 
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
                     "    Contains at least one char within a set of special chars (@#%$^ etc.)\n" +
                     "    Does not contain space, tab, etc.\n ");
         }
-
+        userDao.save(user);
         return new Response<>(user, true, "");
     }
 }
