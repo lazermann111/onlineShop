@@ -39,10 +39,10 @@ public class LoginMenu implements Menu {
                     break;
                 case "3":
                     user = new User("Nikita", "Bat@6546546546", UserRole.CUSTOMER);
-                    userService.userFileDao.save(user);
+                    userService.register(user);
                     break;
                 case "4":
-                    userService.userFileDao.delete(user);
+                    userService.deleteUser(user);
                     break;
                 case "9":
                     back();

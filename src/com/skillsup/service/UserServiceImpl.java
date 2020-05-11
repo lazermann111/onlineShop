@@ -13,8 +13,7 @@ public class UserServiceImpl implements UserService {
 
     public static final String EMPTY_USERNAME_OR_AND_PASSWORD = "empty username or/and password ";
     public static final String YOU_HAVE_WEAK_PASSWORD = "You have weak password";
-    public UserDAO userDao = new UserInMemDAO();
-    public UserFileDao userFileDao = new UserFileDao();
+    public static UserDAO userDao = new UserFileDao();
     Pattern passwordPattern =  Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$");
 
 
@@ -65,5 +64,10 @@ public class UserServiceImpl implements UserService {
         }
         userDao.save(user);
         return new Response<>(user, true, "");
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        userDao.delete(user);
     }
 }
