@@ -4,20 +4,18 @@ import com.skillsup.model.Gender;
 import com.skillsup.model.Response;
 import com.skillsup.model.User;
 import com.skillsup.model.UserRole;
+import com.skillsup.service.UserService;
 import com.skillsup.service.UserServiceImpl;
 
 import java.util.Scanner;
 
 public class LoginMenu implements Menu {
     private Scanner scanner = new Scanner(System.in);
-    private UserServiceImpl userService = new UserServiceImpl();
-    User user;
+    private UserService userService = new UserServiceImpl();
 
     String[] menuItems = new String[]{
             "1. Login",
             "2. Register",
-            "3. Save",
-            "4. Delete",
             "9. Back",
             "0. Exit"
     };
@@ -37,13 +35,6 @@ public class LoginMenu implements Menu {
                 case "2":
                     registerSubMenu();
                     break;
-                case "3":
-                    user = new User("Nikita", "Bat@6546546546", UserRole.CUSTOMER);
-                    userService.register(user);
-                    break;
-                case "4":
-                    userService.deleteUser(user);
-                    break;
                 case "9":
                     back();
                     break;
@@ -52,7 +43,6 @@ public class LoginMenu implements Menu {
                     break;
             }
         }
-
     }
 
     private void registerSubMenu() {
@@ -69,18 +59,15 @@ public class LoginMenu implements Menu {
             Gender gender = getGenderInput();
             int age = (int) getDoubleInput("your age", scanner);
             user = new User(login, password, UserRole.CUSTOMER, gender, age);
-
         } else {
             user = new User(login, password, UserRole.CUSTOMER);
         }
-
         Response<User> registerResponse = userService.register(user);
         if (registerResponse.isSuccess()) {
             new ProductMenu().show();
         } else {
             System.out.println(registerResponse.getErrorMessage());
         }
-
     }
 
     private Gender getGenderInput() {
@@ -104,7 +91,11 @@ public class LoginMenu implements Menu {
         if (loginResponse.isSuccess()) {
             User u = loginResponse.getData();
             System.out.println("user logged in :" + u);
-            new ProductMenu().show();
+            if (u.getUserRole().equals(UserRole.ADMIN)) {
+                new AdminMenu().show();
+            } else {
+                new ProductMenu().show();
+            }
         } else {
             System.out.println(loginResponse.getErrorMessage());
         }

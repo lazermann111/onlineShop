@@ -1,8 +1,7 @@
 package com.skillsup.service;
 
-import com.skillsup.dao.UserFileDao;
 import com.skillsup.dao.UserDAO;
-import com.skillsup.dao.UserInMemDAO;
+import com.skillsup.dao.UserFileDao;
 import com.skillsup.model.Response;
 import com.skillsup.model.User;
 
@@ -64,10 +63,5 @@ public class UserServiceImpl implements UserService {
         }
         userDao.save(user);
         return new Response<>(user, true, "");
-    }
-
-    @Override
-    public void deleteUser(User user) {
-        userDao.delete(user);
     }
 }

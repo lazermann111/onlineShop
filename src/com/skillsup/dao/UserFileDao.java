@@ -62,7 +62,6 @@ public class UserFileDao implements UserDAO {
             userMap.remove(user.getUsername());
             Files.delete(Paths.get("USERS.txt"));
             userMap.forEach((string, users) -> save(users));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,19 +69,21 @@ public class UserFileDao implements UserDAO {
 
     @Override
     public User get(String username) {
-        Map<String, User> getUser = new HashMap<>();
-        return getUser.get(username);
+        try {
+            return getMapOfUsersFromFile().get(username);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
+    @Override
     public Map<String, User> getMapOfUsersFromFile() throws IOException {
         Map<String, User> userMap = new HashMap<>();
         List<String> usersFromFile = new ArrayList<>();
         try {
-            if (source.canRead()) {
                 usersFromFile = Files.readAllLines(Paths.get("USERS.txt"));
-            } else {
-                usersFromFile = Files.readAllLines(Paths.get("USERS2.txt"));
-            }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -1,12 +1,10 @@
 package com.skillsup.dao;
 
-import com.skillsup.model.Gender;
 import com.skillsup.model.User;
 import com.skillsup.model.UserRole;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class UserInMemDAO implements UserDAO {
@@ -35,5 +33,10 @@ public class UserInMemDAO implements UserDAO {
     @Override
     public User get(String username) {
         return userMap.get(username);
+    }
+
+    @Override
+    public Map<String, User> getMapOfUsersFromFile() throws IOException {
+        return null;
     }
 }
