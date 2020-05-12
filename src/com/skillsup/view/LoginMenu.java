@@ -32,18 +32,17 @@ public class LoginMenu implements Menu {
                 case "1":
                     loginSubMenu();
                     break;
-
                 case "2":
                     registerSubMenu();
                     break;
                 case "9":
-                    back();break;
+                    back();
+                    break;
                 case "0":
-                    exitProgram(); break;
-
+                    exitProgram();
+                    break;
             }
         }
-
     }
 
     private void registerSubMenu() {
@@ -58,22 +57,17 @@ public class LoginMenu implements Menu {
         User user;
         if ("y".equalsIgnoreCase(procceding)) {
             Gender gender = getGenderInput();
-            int age =(int) getDoubleInput("your age", scanner);
+            int age = (int) getDoubleInput("your age", scanner);
             user = new User(login, password, UserRole.CUSTOMER, gender, age);
-
-        } else  {
+        } else {
             user = new User(login, password, UserRole.CUSTOMER);
         }
-
         Response<User> registerResponse = userService.register(user);
-        if(registerResponse.isSuccess())
-        {
+        if (registerResponse.isSuccess()) {
             new ProductMenu().show();
-        }
-        else {
+        } else {
             System.out.println(registerResponse.getErrorMessage());
         }
-
     }
 
     private Gender getGenderInput() {
@@ -97,7 +91,11 @@ public class LoginMenu implements Menu {
         if (loginResponse.isSuccess()) {
             User u = loginResponse.getData();
             System.out.println("user logged in :" + u);
-            new ProductMenu().show();
+            if (u.getUserRole().equals(UserRole.ADMIN)) {
+                new AdminMenu().show();
+            } else {
+                new ProductMenu().show();
+            }
         } else {
             System.out.println(loginResponse.getErrorMessage());
         }

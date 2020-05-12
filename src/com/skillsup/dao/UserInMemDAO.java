@@ -3,14 +3,16 @@ package com.skillsup.dao;
 import com.skillsup.model.User;
 import com.skillsup.model.UserRole;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserInMemDAO implements UserDAO {
     static Map<String, User> userMap = new HashMap<>();
-    static
-    {
-       userMap.put("admin", new User("admin", "admin", UserRole.ADMIN));
+
+    static {
+        User user = new User("admin", "admin", UserRole.ADMIN);
+        userMap.put("admin", user);
     }
 
     @Override
@@ -30,6 +32,11 @@ public class UserInMemDAO implements UserDAO {
 
     @Override
     public User get(String username) {
-       return userMap.get(username);
+        return userMap.get(username);
+    }
+
+    @Override
+    public Map<String, User> getMapOfUsersFromFile() throws IOException {
+        return null;
     }
 }
